@@ -7,31 +7,34 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    private void Awake()
-    {
-        instance = this;
-    }
+    private void Awake() { instance = this; }
 
     public float remainingTime = 120f;
-    public float delay = 5f;
+    public float delay = 2f;
     public RestartCanvas restartCanvas;
-    public bool isGameStart = false;
-    public Score score;
+    public Slider slider;
     public Spawner spawner;
+    public Score score;
+    public bool isGameStart = false;
 
-    public void GameStart()
-    {
-        isGameStart = true;
-    }
+    public void GameStart() { isGameStart = true; }
 
     // Update is called once per frame
     void Update()
     {
         if (!isGameStart)
         {
+            slider.interactable = false;
             return;
         }
+        slider.interactable = true;
         CountDown();
+        if (spawner.maxNum <= 0)
+        {
+            isGameStart = false; 
+            StartCoroutine(RestartGame(isGameStart));
+            score.CheckScore();
+        }
     }
 
     void CountDown()
@@ -43,6 +46,7 @@ public class GameManager : MonoBehaviour
             isGameStart = false;
             spawner.DestroyAll();
             StartCoroutine(RestartGame(isGameStart));
+            score.CheckScore();
         }
     }
 

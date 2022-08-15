@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     public int score = 0;
-    //public GameObject textGameObject;
+    public GameObject textGameObject;
     public GameObject scoreGameObject;
-    private TargetScore targetScoreScript;
+    private int targetScore = 5;
     private bool pass;
     private Text txt;
 
@@ -16,12 +16,11 @@ public class Score : MonoBehaviour
     void Start()
     {
         txt = GetComponent<Text>();
-        targetScoreScript = scoreGameObject.GetComponent<TargetScore>();
     }
 
-    /*IEnumerator endGame()
+    IEnumerator endGame()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         if (pass)
         {
             textGameObject.GetComponent<Text>().color = Color.green;
@@ -29,31 +28,32 @@ public class Score : MonoBehaviour
         }
         else
         {
-            textGameObject.GetComponent<Text>().color = Color.white;
+            textGameObject.GetComponent<Text>().color = Color.black;
             textGameObject.GetComponent<Text>().text = "Keep Trying!";
         }
-    }*/
+    }
+
+    public void CheckScore()
+    {
+        textGameObject.SetActive(true);
+        if (score < targetScore)
+        {
+            pass = false;
+        }
+        else
+        {
+            pass = true;
+        }
+        StartCoroutine(endGame());
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if(score <= 0)
-        {
-            score = 0;
-        }
         txt.text = "Current Score: " + score;
-        if(GameManager.instance.isGameStart != true && GameManager.instance.remainingTime == 0)
-        {
-            //textGameObject.SetActive(true);
-            if(score < targetScoreScript.targetScore)
-            {
-                pass = false;
-            }
-            else
-            {
-                pass = true;
-            }
-            //StartCoroutine(endGame());
-        }
+        //if(GameManager.instance.isGameStart != true && GameManager.instance.remainingTime == 0)
+        //{
+
+        //}
     }
 }

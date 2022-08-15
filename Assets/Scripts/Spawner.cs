@@ -6,13 +6,13 @@ public class Spawner : MonoBehaviour
 {
     public List<GameObject> waterList;
     public List<GameObject> oilList;
+    public int maxNum = 10;
     [SerializeField] private GameObject oil;
     [SerializeField] private GameObject water;
     [SerializeField] private RectTransform spawner;
     private float spawnerWidth;
     private float spawnerHeight;
     private float offset = 100f;
-    private int maxNum = 10;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour
         spawnerHeight = spawner.rect.height;
     }
 
-    private void Start()
+    public void Spawn()
     {
         if (GameManager.instance.isGameStart == true)
         {
