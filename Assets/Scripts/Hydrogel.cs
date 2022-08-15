@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Hydrogel : MonoBehaviour
 {
+    public Score score;
+    private bool isOil = false;
+    private bool isWater = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,19 +17,31 @@ public class Hydrogel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(isOil && isWater == true)
+        {
+            score.score += 1;
+            isOil = false;
+            isWater = false;
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("Hit");
-        if(other.gameObject.name == "Oil")
+        if(isOil == false)
         {
-            print("Oil");
+            if (collision.gameObject.CompareTag("Oil") == true)
+            {
+                isOil = true;
+                Destroy(collision.gameObject);
+            }
         }
-        if(other.gameObject.name == "Water")
+        if(isWater == false)
         {
-            print("Water");
+            if (collision.gameObject.CompareTag("Water") == true)
+            {
+                isWater = true;
+                Destroy(collision.gameObject);
+            }
         }
     }
 }
