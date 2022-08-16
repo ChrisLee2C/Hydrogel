@@ -51,9 +51,5 @@ public class Score : MonoBehaviour
     void Update()
     {
         txt.text = "Current Score: " + score;
-        //if(GameManager.instance.isGameStart != true && GameManager.instance.remainingTime == 0)
-        //{
-
-        //}
     }
 }

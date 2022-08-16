@@ -20,7 +20,7 @@ public class Hydrogel : MonoBehaviour
             score.score += 1;
             isOil = false;
             isWater = false;
-            Invoke("DeleteColor", 0.2f);
+            Invoke("DeleteColor", 0.1f);
             spawner.maxNum -= 1;
         }
     }
