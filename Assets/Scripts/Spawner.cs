@@ -1,23 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour
 {
     public List<GameObject> waterList;
     public List<GameObject> oilList;
     public int maxNum = 10;
+    [SerializeField] private Canvas canvas;
     [SerializeField] private GameObject oil;
     [SerializeField] private GameObject water;
-    [SerializeField] private RectTransform spawner;
-    private float spawnerWidth;
-    private float spawnerHeight;
-    private float offset = 100f;
+    [SerializeField] private Text text;
+    private float offset = 250f;
+    private float canvasWidth;
+    private float canvasHeight;
+    private string waterSpawn;
+    private string oilSpawn;
 
     private void Awake()
     {
-        spawnerWidth = spawner.rect.width;
-        spawnerHeight = spawner.rect.height;
+        canvasWidth = canvas.pixelRect.width;
+        canvasHeight = canvas.pixelRect.height;
     }
 
     public void Spawn()
@@ -34,14 +37,16 @@ public class Spawner : MonoBehaviour
 
     private void SpawnWater()
     {
-        Vector3 waterSpawnRange = new Vector3(Random.Range(0 + offset, spawnerWidth - offset), Random.Range(0 + offset, spawnerHeight / 2 - offset), 0);
-        waterList.Add(Instantiate(water, waterSpawnRange, Quaternion.identity, this.gameObject.transform));
+        Vector3 waterSpawnRange = new Vector3(Random.Range(0 + offset, canvasWidth - offset), Random.Range(0 + offset, canvasHeight / 2 - offset), 0);
+        waterSpawn += waterSpawnRange.ToString() + "\n";
+        waterList.Add(Instantiate(water, waterSpawnRange, Quaternion.identity, gameObject.transform));
     }
 
     private void SpawnOil()
     {
-        Vector3 oilSpawnRange = new Vector3(Random.Range(0 + offset, spawnerWidth - offset), Random.Range(spawnerHeight / 2 + offset, spawnerHeight - offset), 0);
-        oilList.Add(Instantiate(oil, oilSpawnRange, Quaternion.identity, this.gameObject.transform));
+        Vector3 oilSpawnRange = new Vector3(Random.Range(0 + offset, canvasWidth - offset), Random.Range(canvasHeight / 2 + offset, canvasHeight - offset), 0);
+        oilSpawn += oilSpawnRange.ToString() + "\n";
+        oilList.Add(Instantiate(oil, oilSpawnRange, Quaternion.identity, gameObject.transform));
     }
 
     public void DestroyAll()
@@ -54,5 +59,10 @@ public class Spawner : MonoBehaviour
         {
             Destroy(items);
         }
+    }
+
+    private void Update()
+    {
+        text.text = "waterSpawnRange: \n" + waterSpawn + "oilSpawnRange: \n" + oilSpawn + "\nspawnerPos: " + gameObject.transform.position;
     }
 }

@@ -39,7 +39,7 @@ public class Hydrogel : MonoBehaviour
             {
                 isOil = true;
                 Destroy(collision.gameObject);
-                oilImage.color = new Color32(254,241,137, 255);
+                oilImage.color = new Color32(254,180,137, 255);
             }
         }
         if(isWater == false)

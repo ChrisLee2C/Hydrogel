@@ -1,13 +1,14 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    private void Awake() { instance = this; }
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public float remainingTime = 120f;
     public float delay = 2f;

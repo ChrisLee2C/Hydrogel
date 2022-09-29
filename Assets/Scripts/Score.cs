@@ -8,9 +8,15 @@ public class Score : MonoBehaviour
     public int score = 0;
     public GameObject textGameObject;
     public GameObject scoreGameObject;
-    private int targetScore = 5;
+    private int targetScore = 10;
     private bool pass;
     private Text txt;
+    private HTTPPost httpPost;
+
+    private void Awake()
+    {
+        httpPost = FindObjectOfType<HTTPPost>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -23,13 +29,14 @@ public class Score : MonoBehaviour
         yield return new WaitForSeconds(2);
         if (pass)
         {
-            textGameObject.GetComponent<Text>().color = Color.green;
-            textGameObject.GetComponent<Text>().text = "Congratulations!";
+            textGameObject.GetComponent<Text>().color = Color.black;
+            textGameObject.GetComponent<Text>().text = "過關了!\n你現在可以\n關閉這個分頁";
+            httpPost.Post();
         }
         else
         {
             textGameObject.GetComponent<Text>().color = Color.black;
-            textGameObject.GetComponent<Text>().text = "Keep Trying!";
+            textGameObject.GetComponent<Text>().text = "繼續努力!\n再嘗試一次？";
         }
     }
 
