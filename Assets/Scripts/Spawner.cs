@@ -10,12 +10,12 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private GameObject oil;
     [SerializeField] private GameObject water;
-    [SerializeField] private Text text;
+    //[SerializeField] private Text text;
     private float offset = 250f;
     private float canvasWidth;
     private float canvasHeight;
-    private string waterSpawn;
-    private string oilSpawn;
+    //private string waterSpawn;
+    //private string oilSpawn;
 
     private void Awake()
     {
@@ -38,15 +38,15 @@ public class Spawner : MonoBehaviour
     private void SpawnWater()
     {
         Vector3 waterSpawnRange = new Vector3(Random.Range(0 + offset, canvasWidth - offset), Random.Range(0 + offset, canvasHeight / 2 - offset), 0);
-        waterSpawn += waterSpawnRange.ToString() + "\n";
-        waterList.Add(Instantiate(water, waterSpawnRange, Quaternion.identity, gameObject.transform));
+        //waterSpawn += waterSpawnRange.ToString() + "\n";
+        waterList.Add(Instantiate(water, waterSpawnRange, Quaternion.identity, canvas.transform));
     }
 
     private void SpawnOil()
     {
         Vector3 oilSpawnRange = new Vector3(Random.Range(0 + offset, canvasWidth - offset), Random.Range(canvasHeight / 2 + offset, canvasHeight - offset), 0);
-        oilSpawn += oilSpawnRange.ToString() + "\n";
-        oilList.Add(Instantiate(oil, oilSpawnRange, Quaternion.identity, gameObject.transform));
+        //oilSpawn += oilSpawnRange.ToString() + "\n";
+        oilList.Add(Instantiate(oil, oilSpawnRange, Quaternion.identity, canvas.transform));
     }
 
     public void DestroyAll()
@@ -61,8 +61,8 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        text.text = "waterSpawnRange: \n" + waterSpawn + "oilSpawnRange: \n" + oilSpawn + "\nspawnerPos: " + gameObject.transform.position;
-    }
+    //private void Update()
+    //{
+    //    text.text = "waterSpawnRange: \n" + waterSpawn + "oilSpawnRange: \n" + oilSpawn + "\nspawnerPos: " + gameObject.transform.position;
+    //}
 }
