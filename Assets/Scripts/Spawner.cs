@@ -11,17 +11,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject oil;
     [SerializeField] private GameObject water;
     //[SerializeField] private Text text;
-    private float offset = 250f;
-    private float canvasWidth;
-    private float canvasHeight;
-    //private string waterSpawn;
-    //private string oilSpawn;
-
-    private void Awake()
-    {
-        canvasWidth = canvas.pixelRect.width;
-        canvasHeight = canvas.pixelRect.height;
-    }
+    private float offset = 150f;
 
     public void Spawn()
     {
@@ -35,17 +25,19 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    private Vector3 WaterSpawnRange() => new Vector3(Random.Range(0 + offset, canvas.transform.position.x*2 - offset), Random.Range(0 + offset, canvas.transform.position.y - offset), 0);
+
+    private Vector3 OilSpawnRange() => new Vector3(Random.Range(0 + offset, canvas.transform.position.x*2 - offset), Random.Range(canvas.transform.position.y + offset, canvas.transform.position.y*2 - offset), 0);
+
     private void SpawnWater()
     {
-        Vector3 waterSpawnRange = new Vector3(Random.Range(0 + offset, canvasWidth - offset), Random.Range(0 + offset, canvasHeight / 2 - offset), 0);
-        //waterSpawn += waterSpawnRange.ToString() + "\n";
+        Vector3 waterSpawnRange = WaterSpawnRange();
         waterList.Add(Instantiate(water, waterSpawnRange, Quaternion.identity, canvas.transform));
     }
 
     private void SpawnOil()
     {
-        Vector3 oilSpawnRange = new Vector3(Random.Range(0 + offset, canvasWidth - offset), Random.Range(canvasHeight / 2 + offset, canvasHeight - offset), 0);
-        //oilSpawn += oilSpawnRange.ToString() + "\n";
+        Vector3 oilSpawnRange = OilSpawnRange();
         oilList.Add(Instantiate(oil, oilSpawnRange, Quaternion.identity, canvas.transform));
     }
 
@@ -63,6 +55,6 @@ public class Spawner : MonoBehaviour
 
     //private void Update()
     //{
-    //    text.text = "waterSpawnRange: \n" + waterSpawn + "oilSpawnRange: \n" + oilSpawn + "\nspawnerPos: " + gameObject.transform.position;
+    //    text.text = "canvas transform: " + canvas.transform.position + "\ncanvas local transform: " + canvas.transform.localPosition; 
     //}
 }
